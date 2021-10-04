@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.form-field-required {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    color: red;
+}
+
+// html{
+//     background-color:#aaf0d1 !important;
+// }
+
+body{
+    background-color:#aaf0d1 !important;
+}
+.login-container{
+  margin-top: 150px;
+}

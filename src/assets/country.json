@@ -1,0 +1,104 @@
+{
+    "countries": [
+        {
+            "id": 1,
+            "name": "India"
+        },
+        {
+            "id": 2,
+            "name": "USA"
+        },
+        {
+            "id": 3,
+            "name": "Germany"
+        }
+    ],
+    "country_code": [
+        {
+            "id": 1,
+            "code": "+91"
+        },
+        {
+            "id": 2,
+            "code": "+1"
+        },
+        {
+            "id": 3,
+            "code": "+49"
+        }
+    ],
+    "states": [
+        {
+            "id": 1,
+            "name": "Tamil Nadu",
+            "country_id": 1,
+            "code_id":1
+        },
+        {
+            "id": 2,
+            "name": "Andhra Pradesh",
+            "country_id": 1,
+            "code_id":1
+        },
+        {
+            "id": 3,
+            "name": "Kerala",
+            "country_id": 1,
+            "code_id":1
+        },
+        {
+            "id": 4,
+            "name": "Karnataka",
+            "country_id": 1,
+            "code_id":1
+        },
+        {
+            "id": 5,
+            "name": "Califonia",
+            "country_id": 2,
+            "code_id":2
+        },
+        {
+            "id": 6,
+            "name": "Texas",
+            "country_id": 2,
+            "code_id":2
+        },
+        {
+            "id": 7,
+            "name": "Washington",
+            "country_id": 2,
+            "code_id":2
+        },
+        {
+            "id": 8,
+            "name": "Hawaii",
+            "country_id": 2,
+            "code_id":2
+        },
+        {
+            "id": 9,
+            "name": "Bavaria",
+            "country_id": 3,
+            "code_id":3
+        },
+        {
+            "id": 10,
+            "name": "Saxony",
+            "country_id": 3,
+            "code_id":3
+        },
+        {
+            "id": 11,
+            "name": "Hessen",
+            "country_id": 3,
+            "code_id":3
+        },
+        {
+            "id": 12,
+            "name": "Rhineland",
+            "country_id": 3,
+            "code_id":3
+        }
+    ]
+}

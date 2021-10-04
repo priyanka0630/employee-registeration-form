@@ -1,0 +1,45 @@
+
+<div><div fxLayout="column" class="login-container"style="background-color: white;padding:25px; border-radius: 12px;" fxFlexFill fxLayoutAlign="center center">
+    <h2>Login</h2>
+
+    <form [formGroup]="loginForm" style="width: 100%;" (ngSubmit)="onSubmit()">
+        <div fxLayout="column" fxFlex="100">
+            <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="start center">
+
+                <div fxLayout="column" fxFlex="100">
+                    <mat-form-field appearance="outline" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                        floatLabel="never">
+                        <span class="form-field-required">*</span>
+                        <mat-label>Email</mat-label>
+                        <input type="email" matInput autocomplete="off" formControlName="email">
+                        <mat-error>Please enter Email</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+
+                <div fxLayout="column" fxFlex="100">
+                    <mat-form-field appearance="outline"
+                        [ngClass]="{ 'is-invalid': submitted && f.passworderrors }" floatLabel="never">
+                        <span class="form-field-required">*</span>
+                        <mat-label>Password</mat-label>
+                        <input type="password" matInput autocomplete="off" formControlName="password">
+                        <mat-error>Please enter Password</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+
+                <div fxLayout="column" fxFles="50">
+                    <button style="width: 250px;" [disabled]="loading" class="btn btn-primary">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Login
+                    </button>
+                    <a routerLink="/register" class="btn btn-link">Create an account</a>
+                    
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

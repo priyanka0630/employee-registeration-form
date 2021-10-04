@@ -1,0 +1,339 @@
+<app-form #progress (stateChange)="onStateChange($event)">
+  <!-- Stepper 1 -->
+  <app-step style="background-color: white; border-radius: 25px;">
+    <h1 style="padding-bottom: 50px;">Personal Details</h1>
+    <form [formGroup]="personalForm">
+      <div fxLayout="column" fxFlex="100">
+
+        <!-- First Name -->
+        <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center start">
+            <div>
+              <mat-label class="text-bold">First Name</mat-label>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="60">
+            <mat-form-field appearance="outline" [ngClass]="personalForm.get('first_name').valid?'mat-valid':''"
+              floatLabel="never" fxFlex="88" fxFlex.xs="100">
+              <span class="form-field-required">*</span>
+              <input type="text" matInput autocomplete="off" formControlName="first_name"
+                placeholder="Enter First Name">
+              <mat-error>Please enter First Name</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Middle Name  -->
+        <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center start">
+            <div>
+              <mat-label class="text-bold">Middle Name</mat-label>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="60">
+            <mat-form-field appearance="outline" floatLabel="never" fxFlex="88" fxFlex.xs="100">
+              <input type="text" matInput autocomplete="off" formControlName="middle_name"
+                placeholder="Enter Middle Name">
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Last Name -->
+        <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center start">
+            <div>
+              <mat-label class="text-bold">Last Name</mat-label>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="60">
+            <mat-form-field appearance="outline" [ngClass]="personalForm.get('last_name').valid?'mat-valid':''"
+              floatLabel="never" fxFlex="88" fxFlex.xs="100">
+              <span class="form-field-required">*</span>
+              <input type="text" matInput autocomplete="off" formControlName="last_name" placeholder="Enter Last Name">
+              <mat-error>Please enter Last Name</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Gender -->
+        <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center start">
+            <div>
+              <mat-label class="text-bold">Gender</mat-label>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="60">
+            <mat-radio-group fxLayoutGap="15px" formControlName="gender">
+              <mat-radio-button value="1" [checked]="personalForm.get('gender').value=='1'"
+                style="padding-bottom: 5px;">
+                Male
+              </mat-radio-button>
+              <mat-radio-button value="2" [checked]="personalForm.get('gender').value=='2'"
+                style="padding-bottom: 5px;">
+                Female
+              </mat-radio-button>
+              <!-- <mat-radio-button fxLayout="row" value="3" [checked]="personalForm.get('gender').value=='3'">
+                Other
+              </mat-radio-button> -->
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <!-- Country -->
+        <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center start">
+            <div>
+              <mat-label class="text-bold">Country</mat-label>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="60">
+            <mat-form-field appearance="outline" floatLabel="never" fxFlex="88" fxFlex.xs="100"
+              [ngClass]="personalForm.get('country').valid?'mat-valid':''">
+              <span class="form-field-required">*</span>
+              <mat-select formControlName="country" (selectionChange)="onSelect($event)" placeholder="Select Country">
+                <mat-option *ngFor="let item of countriesList?.countries" [value]="item.id">{{item.name}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="personalForm.get('country').hasError('required')">
+                Please select Country
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- State -->
+        <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center start">
+            <div>
+              <mat-label class="text-bold">State</mat-label>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="60">
+            <mat-form-field appearance="outline" floatLabel="never" fxFlex="88" fxFlex.xs="100"
+              [ngClass]="personalForm.get('state').valid?'mat-valid':''">
+              <span class="form-field-required">*</span>
+              <mat-select formControlName="state" placeholder="Select State">
+                <mat-option *ngFor="let item of stateList" [value]="item.id">{{item.name}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="personalForm.get('state').hasError('required')">
+                Please select State
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+          <div fxLayout="column" fxFles="50">
+            <button style="width: 250px;margin-top: 10px;" [disabled]="loading" [disabled]="!personalForm.valid"
+              (click)="goNext(progress)" class="btn btn-primary">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </app-step>
+
+  <!-- Stepper 2 -->
+  <app-step style="background-color: white; border-radius: 25px;">
+    <h1 style="padding-bottom: 50px;">Company Details</h1>
+    <form [formGroup]="companyForm" (ngSubmit)="onSubmit(progress)">
+
+      <!-- Company Name  -->
+      <div fxLayout="column" fxFlex="100">
+        <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center start">
+            <div>
+              <mat-label class="text-bold">Company Name</mat-label>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="60">
+            <mat-form-field appearance="outline" [ngClass]="companyForm.get('company_name').valid?'mat-valid':''"
+              floatLabel="never" fxFlex="88" fxFlex.xs="100">
+              <span class="form-field-required">*</span>
+              <input type="text" matInput autocomplete="off" formControlName="company_name"
+                placeholder="Enter Company Name">
+              <mat-error>Please enter Company Name</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center start">
+            <div>
+              <mat-label class="text-bold">Email</mat-label>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="60">
+            <mat-form-field appearance="outline" [ngClass]="companyForm.get('email').valid?'mat-valid':''"
+              floatLabel="never" fxFlex="88" fxFlex.xs="100">
+              <span class="form-field-required">*</span>
+              <input matInput placeholder="Enter Email" formControlName="email">
+              <mat-error *ngIf="companyForm.get('email').errors">
+                <span class="text-danger pull-left"
+                  *ngIf="(!companyForm.get('email').hasError('required')) && (companyForm.get('email').dirty || companyForm.get('email').touched)">
+                  Please enter valid email</span>
+                <span class="text-danger pull-left" *ngIf="companyForm.get('email').hasError('required')">
+                  Please enter email</span>
+                <span *ngIf="emailExists" class="validation-messages form-error">
+                  <p style="margin:0;">Email Already Exists</p>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Phone Number  -->
+        <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center start">
+            <div>
+              <mat-label class="text-bold">Phone Number</mat-label>
+            </div>
+          </div>
+          <div fxLayout="row" fxFlex="60" fxLayoutGap="5px">
+            <div fxLayout="column" fxFlex="30">
+              <mat-form-field appearance="outline" floatLabel="never" fxFlex="88" fxFlex.xs="100">
+                <mat-select formControlName="country_code" placeholder="+91">
+                  <mat-option *ngFor="let item of codeList" [value]="item.id">{{item.code}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex="68">
+              <mat-form-field appearance="outline" floatLabel="never" fxFlex="88" fxFlex.xs="100">
+                <span class="form-field-required">*</span>
+                <input type="text" matInput autocomplete="off" maxlength="10" formControlName="phone_number"
+                  placeholder="Enter Phone Number">
+                <mat-error *ngIf="companyForm.get('phone_number').errors">
+                  <span class="text-danger pull-left" *ngIf="companyForm.get('phone_number').hasError('required')">
+                    Please enter mobile number</span>
+                  <span class="text-danger pull-left"
+                    *ngIf="!companyForm.get('phone_number').hasError('invalid') && !companyForm.get('phone_number').hasError('required') && (companyForm.get('phone_number').dirty || companyForm.get('phone_number').touched)">
+                    Please enter valid mobile number</span>
+                  <span class="text-danger pull-left" *ngIf="companyForm.get('phone_number').hasError('invalid')">
+                    {{ mobileError }}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <!-- Job Title -->
+        <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center start">
+            <div>
+              <mat-label class="text-bold">Job Title</mat-label>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="60">
+            <mat-form-field appearance="outline" floatLabel="never" fxFlex="88" fxFlex.xs="100"
+              [ngClass]="companyForm.get('job').valid?'mat-valid':''">
+              <span class="form-field-required">*</span>
+              <mat-select formControlName="job" placeholder="Select Job Title">
+                <mat-option *ngFor="let item of jobList" [value]="item.id">{{item.title}}</mat-option>
+              </mat-select>
+              <mat-error>Please enter Job Title</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Experience -->
+        <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center start">
+            <div>
+              <mat-label class="text-bold">Experience</mat-label>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="60">
+            <mat-form-field appearance="outline" floatLabel="never" fxFlex="88" fxFlex.xs="100"
+              [ngClass]="companyForm.get('experience').valid?'mat-valid':''">
+              <span class="form-field-required">*</span>
+              <mat-select formControlName="experience" placeholder="Select Experience">
+                <span class="form-field-required">*</span>
+                <mat-option *ngFor="let item of experienceList" [value]="item.id">{{item.experience}}</mat-option>
+              </mat-select>
+              <mat-error>Please enter Experience</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center start">
+            <div>
+              <mat-label class="text-bold">Password</mat-label>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="60">
+            <mat-form-field appearance="outline" floatLabel="never" fxFlex="88" fxFlex.xs="100"
+              [ngClass]="companyForm.get('password').valid?'mat-valid':''">
+              <span class="form-field-required">*</span>
+              <input matInput placeholder="Enter your password" formControlName="password">
+              <mat-error *ngIf="companyForm.controls['password'].invalid">Password is required</mat-error>
+              </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center start">
+            <div>
+              <mat-label class="text-bold">Confirm Password</mat-label>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="60">
+            <mat-form-field appearance="outline" floatLabel="never" fxFlex="88" fxFlex.xs="100"
+              [ngClass]="companyForm.get('confirmPassword').valid?'mat-valid':''">
+              <span class="form-field-required">*</span>
+              <input matInput placeholder="Confirm your password" formControlName="confirmPassword">
+              <mat-error
+                *ngIf="companyForm.controls['confirmPassword'].pristine || companyForm.controls['confirmPassword'].errors?.MatchPassword">
+                Password does not match</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+      <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center">
+        <div fxLayout="column" fxFles="40">
+          <button class="btn btn-info" style="width: 150px;margin-top: 10px;" progressStepPrev
+            *ngIf="personalForm.valid" mat-raised-button>prev</button>
+        </div>
+        <div fxLayout="column" fxFles="40">
+          <button class="btn btn-primary" style="width: 150px;margin-top: 10px;" [disabled]="loading"
+            [disabled]="!companyForm.valid && !personalForm.valid">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Next
+          </button>
+        </div>
+      </div>
+      </div>
+    </form>
+  </app-step>
+
+  <!-- Stepper 3 -->
+  <app-step style="background-color: white; border-radius: 25px;">
+    <div [hidden]="user" fxLayout="column">
+      <div fxLayout="row">
+        <h1 style="padding-bottom: 50px;">Verification</h1>
+      </div>
+      <div fxLayout="column" fxLayoutGap="10px" fxFlex="100">
+        <div fxLayout="row" fxFflex="50">
+          <!-- Recaptcha -->
+          <div id="recaptcha-container"></div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex="100" *ngIf="windowRef.confirmationResult">
+          <div fxLayout="column" fxFles="40">
+            <span for="code">Enter your Verification Code Here</span>
+          </div>
+          <div fxLayout="column" fxFles="40">
+            <input type="text" name="code" [(ngModel)]="verificationCode" class="input">
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxFlex="100" class="p-8" fxLayoutAlign="space-around center"  *ngIf="windowRef.confirmationResult">
+        <div fxLayout="column" fxFles="40">
+          <button class="btn btn-primary" mat-raised-button style="width: 150px;margin-top: 10px;"
+            (click)="verifyLoginCode()">Verify</button>
+        </div>
+      </div>
+    </div>
+  </app-step>
+</app-form>
